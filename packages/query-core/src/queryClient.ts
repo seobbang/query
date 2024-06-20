@@ -55,6 +55,7 @@ interface MutationDefaults {
 // CLASS
 
 export class QueryClient {
+  // ES2019 에서는 해쉬 # prefix 를 추가해 private class 필드를 선언할 수 있게 되었다.
   #queryCache: QueryCache
   #mutationCache: MutationCache
   #defaultOptions: DefaultOptions
@@ -77,12 +78,19 @@ export class QueryClient {
     this.#mountCount++
     if (this.#mountCount !== 1) return
 
+    /* private method인 unsubscribeFocus 함수 정의 
+    : visibilitychange 이벤트 리스너에 달아줄 이벤트 핸들러 등록
+    => 사용은 unmount()에서.
+     */
     this.#unsubscribeFocus = focusManager.subscribe(async (focused) => {
       if (focused) {
+        // unmount 동작 실행 당시 focus
+        // unmount해주는 동작들
         await this.resumePausedMutations()
         this.#queryCache.onFocus()
       }
     })
+    // online, offline(네트워크 여) 이벤트 리스너에 달아줄 이벤트 핸들러 등록
     this.#unsubscribeOnline = onlineManager.subscribe(async (online) => {
       if (online) {
         await this.resumePausedMutations()

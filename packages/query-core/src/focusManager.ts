@@ -20,7 +20,7 @@ export class FocusManager extends Subscribable<Listener> {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!isServer && window.addEventListener) {
         const listener = () => onFocus()
-        // Listen to visibilitychange
+        // Listen to visibilitychange - 브라우저 탭의 콘텐츠가 보여지거나 숨겨질 때 문서에서 발생합니다.
         window.addEventListener('visibilitychange', listener, false)
 
         return () => {

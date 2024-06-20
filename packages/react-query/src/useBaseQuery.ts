@@ -45,6 +45,7 @@ export function useBaseQuery<
   }
 
   const client = useQueryClient(queryClient)
+  // IsRestoringContext 값 불러오기 (persistQueryClientProvider를 쓰는 경우 브라우저에 저장되어 있는 캐시된 데이터 값)
   const isRestoring = useIsRestoring()
   const errorResetBoundary = useQueryErrorResetBoundary()
   const defaultedOptions = client.defaultQueryOptions(options)
@@ -54,7 +55,7 @@ export function useBaseQuery<
     ? 'isRestoring'
     : 'optimistic'
 
-  ensureStaleTime(defaultedOptions)
+  ensureStaleTime(defaultedOptions) // 여기부터
   ensurePreventErrorBoundaryRetry(defaultedOptions, errorResetBoundary)
 
   useClearResetErrorBoundary(errorResetBoundary)

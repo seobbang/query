@@ -42,6 +42,7 @@ export function useQuery<
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError>
 
+// 함수 오버로딩
 export function useQuery(options: UseQueryOptions, queryClient?: QueryClient) {
   return useBaseQuery(options, QueryObserver, queryClient)
 }

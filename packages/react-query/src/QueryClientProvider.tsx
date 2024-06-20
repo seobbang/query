@@ -7,6 +7,7 @@ export const QueryClientContext = React.createContext<QueryClient | undefined>(
   undefined,
 )
 
+// context 가져와서 반환해줌.
 export const useQueryClient = (queryClient?: QueryClient) => {
   const client = React.useContext(QueryClientContext)
 
@@ -31,9 +32,9 @@ export const QueryClientProvider = ({
   children,
 }: QueryClientProviderProps): React.JSX.Element => {
   React.useEffect(() => {
-    client.mount()
+    client.mount() //  역할 : mountCount++ / unsubscribeFocus ,unsubscribeOnline 함수 정의
     return () => {
-      client.unmount()
+      client.unmount() // 역할 : mountcount-- / unsubscribeFocus ,unsubscribeOnline 함수 실행 및 초기화
     }
   }, [client])
 

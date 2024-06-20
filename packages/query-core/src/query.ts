@@ -274,6 +274,7 @@ export class Query<
   }
 
   onFocus(): void {
+    // shouldFetchOnWindowFocus 속성
     const observer = this.observers.find((x) => x.shouldFetchOnWindowFocus())
 
     observer?.refetch({ cancelRefetch: false })

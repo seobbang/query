@@ -62,6 +62,7 @@ export function createNotifyManager() {
     }
   }
 
+  // queue에 쌓인 callback을 다 실행시키고 queue를 비우는 함수
   const flush = (): void => {
     const originalQueue = queue
     queue = []

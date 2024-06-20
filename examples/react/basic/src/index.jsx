@@ -50,6 +50,7 @@ function usePosts() {
 }
 
 function Posts({ setPostId }) {
+  // useQueryClient : context 가져와서 반환해줌
   const queryClient = useQueryClient()
   const { status, data, error, isFetching } = usePosts()
 
