@@ -1,5 +1,6 @@
 type Listener = () => void
 
+// 옵저버(관찰자)의 인터페이스(모습)
 export class Subscribable<TListener extends Function = Listener> {
   protected listeners: Set<TListener>
 

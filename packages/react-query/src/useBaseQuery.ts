@@ -55,11 +55,12 @@ export function useBaseQuery<
     ? 'isRestoring'
     : 'optimistic'
 
-  ensureStaleTime(defaultedOptions) // 여기부터
+  ensureStaleTime(defaultedOptions)
   ensurePreventErrorBoundaryRetry(defaultedOptions, errorResetBoundary)
 
   useClearResetErrorBoundary(errorResetBoundary)
 
+  // useState 안 함수는 initialize 될 때만 호출됨
   const [observer] = React.useState(
     () =>
       new Observer<TQueryFnData, TError, TData, TQueryData, TQueryKey>(
@@ -76,6 +77,7 @@ export function useBaseQuery<
         const unsubscribe = isRestoring
           ? () => undefined
           : observer.subscribe(notifyManager.batchCalls(onStoreChange))
+        // observer.subscribe(()=>{schedule(() => {onStoreChange(...args)})})
 
         // Update result to make sure we did not miss any query updates
         // between creating the observer and subscribing to it.
@@ -88,7 +90,7 @@ export function useBaseQuery<
     () => observer.getCurrentResult(),
     () => observer.getCurrentResult(),
   )
-
+  a
   React.useEffect(() => {
     // Do not notify on updates because of changes in the options because
     // these changes should already be reflected in the optimistic result.
@@ -100,7 +102,7 @@ export function useBaseQuery<
     // Do the same thing as the effect right above because the effect won't run
     // when we suspend but also, the component won't re-mount so our observer would
     // be out of date.
-    throw fetchOptimistic(defaultedOptions, observer, errorResetBoundary)
+    throw fetchOptimistic(defultedOptions, observer, errorResetBoundary)
   }
 
   // Handle error boundary
